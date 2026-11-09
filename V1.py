@@ -1,23 +1,39 @@
-# --- PROGRAMA PARA CALCULAR DESCUENTOS ---
+# --- SISTEMA DE CAJA CON DESCUENTOS ---
 
-print("--- CALCULADORA DE DESCUENTOS ---")
+def calcular_descuento():
+    print("\n--- NUEVO CÁLCULO ---")
+    
+    try:
+        # Solicitar datos
+        precio = float(input("Precio del producto: $"))
+        descuento = float(input("Porcentaje de descuento: "))
+        
+        # Validaciones lógicas
+        if precio < 0 or descuento < 0:
+            print("ERROR: El precio y el descuento no pueden ser negativos.")
+            return
+        elif descuento > 100:
+            print("ERROR: El descuento no puede ser mayor al 100%.")
+            return
+            
+        # Cálculos
+        ahorro = precio * (descuento / 100)
+        total = precio - ahorro
+        
+        # Imprimir resultado
+        print(f"\n✅ Descuento de ${ahorro:.2f} aplicado.")
+        print(f"💰 El cliente debe pagar: ${total:.2f}")
+        
+    except ValueError:
+        # Esto atrapa el error si el usuario escribe letras
+        print("❌ ERROR: Por favor, ingresa solo números.")
 
-# 1. Solicitar los datos al usuario
-# Usamos float() porque los precios pueden tener decimales
-precio_original = float(input("Ingresa el precio original del producto: $"))
-porcentaje_descuento = float(input("Ingresa el porcentaje de descuento (ej. 15 para 15%): "))
-
-# 2. Calcular el monto del descuento
-# La fórmula es: (Precio * Porcentaje) / 100
-monto_descuento = (precio_original * porcentaje_descuento) / 100
-
-# 3. Calcular el precio final
-precio_final = precio_original - monto_descuento
-
-# 4. Mostrar los resultados en pantalla
-# El :.2f sirve para redondear a 2 decimales (formato de moneda)
-print("\n--- TICKET DE COMPRA ---")
-print(f"Precio original:    ${precio_original:.2f}")
-print(f"Descuento aplicado: -${monto_descuento:.2f} ({porcentaje_descuento}%)")
-print(f"TOTAL A PAGAR:      ${precio_final:.2f}")
-print("------------------------")
+# --- Bucle principal del programa ---
+while True:
+    calcular_descuento()
+    
+    # Preguntar si desea continuar
+    continuar = input("\n¿Calcular otro producto? (s/n): ").lower()
+    if continuar != 's':
+        print("Cerrando la caja registradora...")
+        break
